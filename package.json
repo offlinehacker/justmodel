@@ -1,0 +1,79 @@
+{
+  "name": "justmodel",
+  "version": "0.0.0",
+  "description": "Extendable immutable javascript model with validation and change tracking",
+  "main": "dist/index.js",
+  "scripts": {
+    "eslint": "eslint .",
+    "flow": "flow",
+    "flow:update": "flow-typed install --overwrite",
+    "lint": "npm -s run eslint && npm -s run flow",
+    "tests": "mocha --compilers js:babel-core/register",
+    "test": "npm -s run tests",
+    "pretest": "npm -s run lint",
+    "debug": "node debug -r babel-core/register",
+    "start": "node -r babel-core/register lib/index.js",
+    "compile": "babel -d dist lib",
+    "gen-docs": "documentation build -f md lib > API.md",
+    "release": "np",
+    "version": "npm run compile && npm run gen-docs && git add API.md"
+  },
+  "author": "Jaka Hudoklin <jakahudoklin@gmail.com>",
+  "homepage": "https://github.com/offlinehacker/justmodel",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/offlinehacker/justmodel"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=7.6"
+  },
+  "engineStrict": true,
+  "devDependencies": {
+    "babel-cli": "^6.18.0",
+    "babel-eslint": "^7.1.1",
+    "babel-plugin-transform-flow-comments": "^6.17.0",
+    "chai": "^3.5.0",
+    "documentation": "^4.0.0-beta15",
+    "eslint": "^3.10.2",
+    "eslint-config-xo": "^0.17.0",
+    "eslint-plugin-flowtype": "^2.25.0",
+    "eslint-plugin-mocha": "^4.7.0",
+    "flow-bin": "^0.35.0",
+    "flow-typed": "^2.0.0",
+    "mocha": "^3.1.2",
+    "np": "^2.10.1",
+    "uuid": "^3.0.1"
+  },
+  "eslintConfig": {
+    "extends": [
+      "xo/esnext",
+      "plugin:flowtype/recommended"
+    ],
+    "plugins": [
+      "flowtype",
+      "mocha"
+    ],
+    "rules": {
+      "indent": [
+        "error",
+        4,
+        {
+          "SwitchCase": 1
+        }
+      ],
+      "mocha/no-exclusive-tests": "error"
+    }
+  },
+  "babel": {
+    "plugins": [
+      "transform-flow-comments"
+    ],
+    "sourceMaps": false
+  },
+  "dependencies": {
+    "errorjs": "^0.4.0",
+    "immutable": "^4.0.0-rc.2",
+    "joi": "^10.5.2"
+  }
+}
