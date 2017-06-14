@@ -1,6 +1,6 @@
 {
   "name": "justmodel",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Extendable immutable javascript model with validation and change tracking",
   "main": "dist/index.js",
   "scripts": {
