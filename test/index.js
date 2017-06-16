@@ -4,6 +4,7 @@
 const Joi = require('joi');
 const uuidv4 = require('uuid/v4');
 const {expect} = require('chai');
+const {ValidationError} = require('errorjs');
 
 const Model = require('../lib');
 
@@ -67,6 +68,10 @@ describe('Model', () => {
         it('values should be changed', () => {
             expect(user.hasChanged('id')).to.be.true;
             expect(user.hasChanged('password')).to.be.true;
+        });
+
+        it('should throw error if required parameter is not provided', () => {
+            expect(() => UserModel.create({})).to.throw(ValidationError);
         });
     });
 
