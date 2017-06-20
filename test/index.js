@@ -45,15 +45,13 @@ describe('Model', () => {
     let user;
 
     describe('create', () => {
-        before(() => {
+        it('should be created', () => {
             user = UserModel.create({
                 username: 'offlinehacker',
                 email: 'test@gmail.com',
                 password: 'passpasspass'
             });
-        });
 
-        it('should be created', () => {
             expect(user.value).to.be.deep.equal({
                 id: user.get('id'),
                 createdAt: user.get('createdAt'),
@@ -65,49 +63,104 @@ describe('Model', () => {
             expect(user.get('password')).to.be.equal('passpasspass');
         });
 
+        it('should be created with multiple arguments', () => {
+            user = UserModel.create({
+                username: 'offlinehacker'
+            }, {
+                email: 'test@gmail.com',
+                password: 'passpasspass'
+            });
+
+            expect(user.value).to.be.deep.equal({
+                id: user.get('id'),
+                createdAt: user.get('createdAt'),
+                updatedAt: user.get('updatedAt'),
+                username: 'offlinehacker',
+                email: 'test@gmail.com'
+            });
+        });
+
         it('values should be changed', () => {
+            user = UserModel.create({
+                username: 'offlinehacker',
+                email: 'test@gmail.com',
+                password: 'passpasspass'
+            });
+
             expect(user.hasChanged('id')).to.be.true;
             expect(user.hasChanged('password')).to.be.true;
         });
 
         it('should throw error if required parameter is not provided', () => {
+            user = UserModel.create({
+                username: 'offlinehacker',
+                email: 'test@gmail.com',
+                password: 'passpasspass'
+            });
+
             expect(() => UserModel.create({})).to.throw(ValidationError);
         });
     });
 
     describe('update', () => {
-        before(() => {
+        beforeEach(() => {
             user = UserModel.load({
                 username: 'offlinehacker',
                 email: 'test@gmail.com',
                 hashedPassword: 'hashhashhash'
             });
+        });
 
+        it('should update', () => {
             user = user.update({
                 email: 'test2@gmail.com'
             });
         });
 
-        it('should get new values', () => {
-            expect(user.get('username')).to.be.equal('offlinehacker');
-            expect(user.get('email')).to.be.equal('test2@gmail.com');
+        it('should update with multiple arguments', () => {
+            user = user.update({
+                email: 'test2@gmail.com'
+            }, {
+                username: 'offlinehacker2'
+            });
+
+            expect(user.value).to.be.deep.equal({
+                id: user.get('id'),
+                createdAt: user.get('createdAt'),
+                updatedAt: user.get('updatedAt'),
+                username: 'offlinehacker2',
+                email: 'test2@gmail.com'
+            });
         });
 
-        it('should have changed values', () => {
-            expect(user.hasChanged('username')).to.be.false;
-            expect(user.hasChanged('email')).to.be.true;
-        });
+        describe('with updated model', () => {
+            beforeEach(() => {
+                user = user.update({
+                    email: 'test2@gmail.com'
+                });
+            });
 
-        it('should get old value', () => {
-            expect(user.getOld('username')).to.be.equal('offlinehacker');
-            expect(user.getOld('email')).to.be.equal('test@gmail.com');
-        });
+            it('should get new values', () => {
+                expect(user.get('username')).to.be.equal('offlinehacker');
+                expect(user.get('email')).to.be.equal('test2@gmail.com');
+            });
 
-        it('should commit changes', () => {
-            user = user.commit();
+            it('should have changed values', () => {
+                expect(user.hasChanged('username')).to.be.false;
+                expect(user.hasChanged('email')).to.be.true;
+            });
 
-            expect(user.getOld('username')).to.be.equal(user.get('username'));
-            expect(user.getOld('email')).to.be.equal(user.get('email'));
+            it('should get old value', () => {
+                expect(user.getOld('username')).to.be.equal('offlinehacker');
+                expect(user.getOld('email')).to.be.equal('test@gmail.com');
+            });
+
+            it('should commit changes', () => {
+                user = user.commit();
+
+                expect(user.getOld('username')).to.be.equal(user.get('username'));
+                expect(user.getOld('email')).to.be.equal(user.get('email'));
+            });
         });
     });
 });
