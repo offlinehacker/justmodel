@@ -1,5 +1,7 @@
 # justmodel
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/offlinehacker/justmodel.svg)](https://greenkeeper.io/)
+
 Extendable immutable javascript models with validation and change tracking
 
 ## Example
