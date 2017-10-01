@@ -1,6 +1,6 @@
 {
   "name": "justmodel",
-  "version": "1.0.0-development",
+  "version": "1.0.1",
   "description": "Just another model library",
   "keywords": [],
   "main": "dist/justmodel",
