@@ -77,7 +77,7 @@
   "devDependencies": {
     "colors": "^1.1.2",
     "commitizen": "^2.9.6",
-    "coveralls": "^2.13.3",
+    "coveralls": "^3.0.0",
     "cross-env": "^5.0.1",
     "cz-conventional-changelog": "^2.0.0",
     "flowgen": "^1.2.0",
@@ -106,7 +106,7 @@
     "validate-commit-msg": "^2.12.2"
   },
   "dependencies": {
-    "@types/jest": "^20.0.0",
+    "@types/jest": "^21.1.1",
     "@types/node": "^8.0.31",
     "@types/joi": "^10.4.3",
     "immutable": "^4.0.0-rc.3",
