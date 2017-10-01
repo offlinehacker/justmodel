@@ -13,7 +13,7 @@ export class ValidationError extends Error {
 }
 
 export default class Model<T extends Object> {
-  private __isProxy: boolean = false
+  private _isproxy: boolean = false
 
   private _data: Immutable.Map<any, any>
   private _originalData: Immutable.Map<any, any>
@@ -316,14 +316,14 @@ export default class Model<T extends Object> {
   }
 
   private _createProxy(): this & T {
-    if (this.__isProxy) {
+    if (this._isproxy) {
       return this as this & T
     }
 
     return new Proxy<this & T>(this as this & T, {
       get: (target, name, receiver) => {
         // getter to check whether object is proxyified
-        if (name === "__isProxy") {
+        if (name === "_isproxy") {
           return true
         }
 
