@@ -141,7 +141,6 @@ save(user);
  - `npm run build`: Generage bundles and typings, create docs
  - `npm run lint`: Lints code
  - `npm run commit`: Commit using conventional commit style ([husky](https://github.com/typicode/husky) will tell you to use it if you haven't :wink:)
- - `npm run semantic-release`: Release code using [semantic release](https://github.com/semantic-release/semantic-release)
 
 ## Credits
 
