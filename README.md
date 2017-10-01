@@ -5,7 +5,6 @@
 [![Travis](https://img.shields.io/travis/offlinehacker/justmodel.svg)](https://travis-ci.org/offlinehacker/justmodel)
 [![Coveralls](https://img.shields.io/coveralls/offlinehacker/justmodel.svg)](https://coveralls.io/github/offlinehacker/justmodel)
 [![Dev Dependencies](https://david-dm.org/offlinehacker/justmodel/dev-status.svg)](https://david-dm.org/offlinehacker/justmodel?type=dev)
-[![Donate](https://img.shields.io/badge/donate-paypal-blue.svg)](https://paypal.me/AJoverMorales)
 
 Extendable immutable javascript models with validation and change tracking
 
