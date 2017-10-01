@@ -1,0 +1,118 @@
+{
+  "name": "justmodel",
+  "version": "1.0.0-development",
+  "description": "Just another model library",
+  "keywords": [],
+  "main": "dist/justmodel",
+  "module": "dist/justmodel.esm.js",
+  "browser": "dist/justmodel.umd.js",
+  "typings": "dist/justmodel.d.ts",
+  "files": [
+    "dist"
+  ],
+  "author": "Jaka Hudoklin <jakahudoklin@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/offlinehacker/justmodel.git"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "scripts": {
+    "lint": "tslint -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
+    "prebuild": "rimraf dist",
+    "build": "tsc && flowgen -o dist/justmodel.js.flow dist/justmodel.d.ts && rollup -c && rimraf compiled && typedoc --excludePrivate --out dist/docs --target es6 --theme default src",
+    "start": "tsc -w & rollup -c -w",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:prod": "npm run lint && npm run test -- --coverage --no-cache",
+    "deploy-docs": "ts-node tools/gh-pages-publish",
+    "report-coverage": "cat ./coverage/lcov.info | coveralls",
+    "commit": "git-cz",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "semantic-release-prepare": "ts-node tools/semantic-release-prepare",
+    "precommit": "lint-staged",
+    "prepush": "npm run test:prod && npm run build",
+    "commitmsg": "validate-commit-msg"
+  },
+  "lint-staged": {
+    "{src,test}/**/*.ts": [
+      "prettier --write --no-semi",
+      "git add"
+    ]
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    },
+    "validate-commit-msg": {
+      "types": "conventional-commit-types",
+      "helpMessage": "Use \"npm run commit\" instead, we use conventional-changelog format :) (https://github.com/commitizen/cz-cli)"
+    }
+  },
+  "jest": {
+    "coverageReporters": [
+      "text",
+      "html"
+    ],
+    "transform": {
+      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "coveragePathIgnorePatterns": [
+      "/node_modules/",
+      "/test/"
+    ],
+    "coverageThreshold": {
+      "global": {
+        "branches": 80,
+        "functions": 95,
+        "lines": 95,
+        "statements": 95
+      }
+    }
+  },
+  "devDependencies": {
+    "@types/jest": "^20.0.0",
+    "@types/node": "^8.0.0",
+    "colors": "^1.1.2",
+    "commitizen": "^2.9.6",
+    "coveralls": "^2.13.1",
+    "cross-env": "^5.0.1",
+    "cz-conventional-changelog": "^2.0.0",
+    "husky": "^0.14.0",
+    "jest": "^21.0.0",
+    "lint-staged": "^4.0.0",
+    "lodash.camelcase": "^4.3.0",
+    "prettier": "^1.4.4",
+    "prompt": "^1.0.0",
+    "replace-in-file": "^3.0.0-beta.2",
+    "rimraf": "^2.6.1",
+    "rollup": "^0.50.0",
+    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-node-resolve": "^3.0.0",
+    "rollup-plugin-sourcemaps": "^0.4.2",
+    "semantic-release": "^8.0.3",
+    "ts-jest": "^21.0.0",
+    "ts-node": "^3.0.6",
+    "tslint": "^5.4.3",
+    "tslint-config-prettier": "^1.1.0",
+    "tslint-config-standard": "^6.0.0",
+    "typedoc": "^0.8.0",
+    "typescript": "^2.6.0-dev.20170923",
+    "validate-commit-msg": "^2.12.2"
+  },
+  "dependencies": {
+    "@types/joi": "^10.4.3",
+    "immutable": "^4.0.0-rc.2",
+    "joi": "^11.1.1",
+    "rollup-plugin-json": "^2.3.0",
+    "rollup-plugin-npm": "^2.0.0"
+  }
+}
