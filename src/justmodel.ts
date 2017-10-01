@@ -1,17 +1,6 @@
 import Immutable from "immutable"
 import Joi from "joi"
 
-export class ValidationError extends Error {
-  details: Object
-
-  constructor(err: Error) {
-    super(err.message)
-
-    this.name = "ValidationError"
-    this.details = (err as any).details
-  }
-}
-
 export default class Model<T extends Object> {
   private _isproxy: boolean = false
 
@@ -228,7 +217,7 @@ export default class Model<T extends Object> {
     const result = schema.validate(newData.toJS())
 
     if (result.error) {
-      throw new ValidationError(result.error)
+      throw result.error
     }
 
     if (inPlace) {

@@ -1,7 +1,6 @@
 import Joi from "joi"
 
 import Model from "../src/justmodel"
-import { ValidationError } from "../src/justmodel"
 
 type User = {
   username: string
@@ -55,7 +54,7 @@ describe("Model test", () => {
           username: "abc",
           password: "abc"
         })
-      }).toThrow(ValidationError)
+      }).toThrow(/child "username" fails/)
     })
   })
 
