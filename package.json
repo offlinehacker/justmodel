@@ -79,8 +79,6 @@
     }
   },
   "devDependencies": {
-    "@types/jest": "^20.0.0",
-    "@types/node": "^8.0.31",
     "colors": "^1.1.2",
     "commitizen": "^2.9.6",
     "coveralls": "^2.13.3",
@@ -107,13 +105,15 @@
     "tslint-config-standard": "^6.0.0",
     "typedoc": "^0.8.0",
     "typescript": "^2.6.0-dev.20170930",
-    "validate-commit-msg": "^2.12.2"
-  },
-  "dependencies": {
-    "@types/joi": "^10.4.3",
-    "immutable": "^4.0.0-rc.3",
-    "joi": "^11.1.1",
+    "validate-commit-msg": "^2.12.2",
     "rollup-plugin-json": "^2.3.0",
     "rollup-plugin-npm": "^2.0.0"
+  },
+  "dependencies": {
+    "@types/jest": "^20.0.0",
+    "@types/node": "^8.0.31",
+    "@types/joi": "^10.4.3",
+    "immutable": "^4.0.0-rc.3",
+    "joi": "^11.1.1"
   }
 }
