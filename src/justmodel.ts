@@ -4,8 +4,8 @@ import Joi from "joi"
 export default class Model<T extends Object> {
   private _isproxy: boolean = false
 
-  private _data: Immutable.Map<any, any>
-  private _originalData: Immutable.Map<any, any>
+  protected _data: Immutable.Map<any, any>
+  protected _originalData: Immutable.Map<any, any>
 
   constructor(data = Immutable.Map(), originalData = data) {
     this._data = data
