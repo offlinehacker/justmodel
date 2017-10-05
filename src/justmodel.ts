@@ -42,6 +42,13 @@ export default class Model<T extends Object> {
   }
 
   /**
+   * Handler called after model has been updated
+   */
+  public postUpdate(model: this) {
+    return
+  }
+
+  /**
    * Updates model in place
    *
    * @param {...Partial<T>[]} data multiple partials of a data to update with
@@ -220,16 +227,21 @@ export default class Model<T extends Object> {
       throw result.error
     }
 
+    let model
     if (inPlace) {
       this._data = newData
 
-      return this
+      model = this
+    } else {
+      model = new (this.constructor as typeof Model)(
+        Immutable.fromJS(result.value),
+        this._originalData
+      ) as this
     }
 
-    return new (this.constructor as typeof Model)(
-      Immutable.fromJS(result.value),
-      this._originalData
-    ) as this
+    this.postUpdate(model)
+
+    return model
   }
 
   /**
