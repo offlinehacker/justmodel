@@ -2,10 +2,10 @@ import Immutable from "immutable"
 import Joi from "joi"
 
 export default class Model<T extends Object> {
-  private _isproxy: boolean = false
-
   protected _data: Immutable.Map<any, any>
   protected _originalData: Immutable.Map<any, any>
+
+  private _isproxy: boolean = false
 
   constructor(data = Immutable.Map(), originalData = data) {
     this._data = data
