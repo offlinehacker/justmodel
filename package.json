@@ -75,6 +75,7 @@
     }
   },
   "devDependencies": {
+    "@types/jest": "^20.0.0",
     "colors": "^1.1.2",
     "commitizen": "^2.9.6",
     "coveralls": "^2.13.3",
@@ -106,7 +107,6 @@
     "validate-commit-msg": "^2.12.2"
   },
   "dependencies": {
-    "@types/jest": "^20.0.0",
     "@types/node": "^8.0.31",
     "@types/joi": "^10.4.3",
     "immutable": "^4.0.0-rc.7",
