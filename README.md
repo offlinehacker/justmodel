@@ -19,7 +19,7 @@ Justmodel has fully typed models when working with typescript and flowtype,
 that provide type safety when working with models.
 
 ```javascript
-import Model from 'justmodel';
+import { Model } from 'justmodel';
 
 type User = {
   username: string;
@@ -92,7 +92,7 @@ npm install --save justmodel
 ### Example
 
 ```javascript
-import Model from 'justmodel';
+import { Model } from 'justmodel';
 
 class UserModel extends Model<User> {
   get schema() {

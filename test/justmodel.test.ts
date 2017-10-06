@@ -1,6 +1,6 @@
 import Joi from "joi"
 
-import Model from "../src/justmodel"
+import { Model } from "../src/justmodel"
 
 type User = {
   username: string
@@ -14,7 +14,7 @@ type User = {
 }
 
 class UserModel extends Model<User> {
-  protected get schema() {
+  get schema() {
     return super.schema.keys({
       username: Joi.string()
         .required()

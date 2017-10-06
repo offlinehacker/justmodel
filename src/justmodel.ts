@@ -1,7 +1,7 @@
 import Immutable from "immutable"
 import Joi from "joi"
 
-export default class Model<T extends Object> {
+export class Model<T extends Object> {
   protected _data: Immutable.Map<any, any>
   protected _originalData: Immutable.Map<any, any>
 
