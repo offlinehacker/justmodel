@@ -44,7 +44,7 @@ export class Model<T extends Object> {
   /**
    * Handler called after model has been updated
    */
-  public postUpdate(model: this) {
+  public postUpdate(model: this): this & T | void {
     return
   }
 
@@ -239,7 +239,7 @@ export class Model<T extends Object> {
       ) as this
     }
 
-    this.postUpdate(model)
+    model = this.postUpdate(model) || model
 
     return model
   }
