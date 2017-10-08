@@ -1,6 +1,6 @@
 # justmodel
 
-[![styled with prettier](https://img.shields.io/badge/styled_with-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+[![NPM Version](https://badge.fury.io/js/justmodel.svg)](http://badge.fury.io/js/justmodel)
 [![Greenkeeper badge](https://badges.greenkeeper.io/offlinehacker/justmodel.svg)](https://greenkeeper.io/)
 [![Travis](https://img.shields.io/travis/offlinehacker/justmodel.svg)](https://travis-ci.org/offlinehacker/justmodel)
 [![Coveralls](https://img.shields.io/coveralls/offlinehacker/justmodel.svg)](https://coveralls.io/github/offlinehacker/justmodel)
