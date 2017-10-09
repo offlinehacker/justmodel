@@ -229,7 +229,7 @@ export class Model<T extends Object> {
 
     let model
     if (inPlace) {
-      this._data = newData
+      this._data = Immutable.fromJS(result.value)
 
       model = this
     } else {
