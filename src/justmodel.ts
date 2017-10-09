@@ -328,8 +328,8 @@ export class Model<T extends Object> {
           return true
         }
 
-        // check whether object has an attribute
-        if (target.has(name.toString())) {
+        // check whether object has an attribute and not name in target
+        if (target.has(name.toString()) && !(name in target)) {
           let value = target.get(name.toString())
 
           if (Immutable.isImmutable(value)) {
