@@ -297,7 +297,7 @@ export class Model<T extends Object> {
       get: (target, name, receiver) => {
         const value = Reflect.get(target, name, receiver)
 
-        if (typeof value === "object") {
+        if (typeof value === "object" && value.constructor === Object) {
           return this._createObjectValueProxy(value, prop, rootValue)
         }
 
