@@ -27,7 +27,7 @@ export class Model<T extends Object> {
   /**
    * Creates a new model with provided data
    */
-  public create(data: T) {
+  public create(data: Partial<T>) {
     return this._update([data], this.createSchema, true)._createProxy()
   }
 
