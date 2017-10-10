@@ -336,7 +336,7 @@ export class Model<T extends Object> {
             value = value.toJS()
           }
 
-          if (typeof value === "object") {
+          if (typeof value === "object" && value.constructor === Object) {
             return this._createObjectValueProxy(value, name.toString())
           }
 
