@@ -199,6 +199,13 @@ export class Model<T extends Object> {
   }
 
   /**
+   * Handles validation error. User can extend this method to wrap error.
+   */
+  public handleValidationError(error: Joi.ValidationError) {
+    throw error
+  }
+
+  /**
    * Creates clone of a model
    *
    * @returns {Model<T>} cloned model
@@ -224,7 +231,7 @@ export class Model<T extends Object> {
     const result = schema.validate(newData.toJS())
 
     if (result.error) {
-      throw result.error
+      this.handleValidationError(result.error)
     }
 
     let model
