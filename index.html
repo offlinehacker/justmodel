@@ -1,0 +1,273 @@
+<!doctype html>
+<html class="default no-js">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>justmodel</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="assets/css/main.css">
+</head>
+<body>
+<header>
+	<div class="tsd-page-toolbar">
+		<div class="container">
+			<div class="table-wrap">
+				<div class="table-cell" id="tsd-search" data-index="assets/js/search.js" data-base=".">
+					<div class="field">
+						<label for="tsd-search-field" class="tsd-widget search no-caption">Search</label>
+						<input id="tsd-search-field" type="text" />
+					</div>
+					<ul class="results">
+						<li class="state loading">Preparing search index...</li>
+						<li class="state failure">The search index is not available</li>
+					</ul>
+					<a href="index.html" class="title">justmodel</a>
+				</div>
+				<div class="table-cell" id="tsd-widgets">
+					<div id="tsd-filter">
+						<a href="#" class="tsd-widget options no-caption" data-toggle="options">Options</a>
+						<div class="tsd-filter-group">
+							<div class="tsd-select" id="tsd-filter-visibility">
+								<span class="tsd-select-label">All</span>
+								<ul class="tsd-select-list">
+									<li data-value="public">Public</li>
+									<li data-value="protected">Public/Protected</li>
+									<li data-value="private" class="selected">All</li>
+								</ul>
+							</div>
+							<input type="checkbox" id="tsd-filter-inherited" checked />
+							<label class="tsd-widget" for="tsd-filter-inherited">Inherited</label>
+							<input type="checkbox" id="tsd-filter-externals" checked />
+							<label class="tsd-widget" for="tsd-filter-externals">Externals</label>
+							<input type="checkbox" id="tsd-filter-only-exported" />
+							<label class="tsd-widget" for="tsd-filter-only-exported">Only exported</label>
+						</div>
+					</div>
+					<a href="#" class="tsd-widget menu no-caption" data-toggle="menu">Menu</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="tsd-page-title">
+		<div class="container">
+			<ul class="tsd-breadcrumb">
+				<li>
+					<a href="globals.html">Globals</a>
+				</li>
+			</ul>
+			<h1> justmodel</h1>
+		</div>
+	</div>
+</header>
+<div class="container container-main">
+	<div class="row">
+		<div class="col-8 col-content">
+			<div class="tsd-panel tsd-typography">
+				<h1 id="justmodel">justmodel</h1>
+				<p><a href="http://badge.fury.io/js/justmodel"><img src="https://badge.fury.io/js/justmodel.svg" alt="NPM Version"></a>
+					<a href="https://greenkeeper.io/"><img src="https://badges.greenkeeper.io/offlinehacker/justmodel.svg" alt="Greenkeeper badge"></a>
+					<a href="https://travis-ci.org/offlinehacker/justmodel"><img src="https://img.shields.io/travis/offlinehacker/justmodel.svg" alt="Travis"></a>
+					<a href="https://coveralls.io/github/offlinehacker/justmodel"><img src="https://img.shields.io/coveralls/offlinehacker/justmodel.svg" alt="Coveralls"></a>
+				<a href="https://david-dm.org/offlinehacker/justmodel?type=dev"><img src="https://david-dm.org/offlinehacker/justmodel/dev-status.svg" alt="Dev Dependencies"></a></p>
+				<p>Extendable immutable javascript models with validation and change tracking</p>
+				<h2 id="description">Description</h2>
+				<p>JustModel is a modern extendable model library written in typescript,
+				that provides several features that every model library should have:</p>
+				<h3 id="static-typed-data-types">Static typed data types</h3>
+				<p>Justmodel has fully typed models when working with typescript and flowtype,
+				that provide type safety when working with models.</p>
+				<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { Model } <span class="hljs-keyword">from</span> <span class="hljs-string">'justmodel'</span>;
+
+type User = {
+  <span class="hljs-attr">username</span>: string;
+  password: string;
+}; 
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserModel</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Model</span>&lt;<span class="hljs-title">User</span>&gt; </span>{}
+
+<span class="hljs-keyword">const</span> user = <span class="hljs-keyword">new</span> UserModel().create({<span class="hljs-attr">username</span>: <span class="hljs-string">'username'</span>}) <span class="hljs-comment">// &lt;-- property password is missing in type</span>
+</code></pre>
+				<h3 id="immutable-and-non-immutable-operations">Immutable and non-immutable operations</h3>
+				<p>All operations are immutable by default, except is in place mutation methods are used</p>
+				<pre><code class="lang-javascript"><span class="hljs-keyword">let</span> mutatedUser = user.update({<span class="hljs-attr">password</span>: <span class="hljs-string">'newpassword'</span>});
+
+user === mutatedUser <span class="hljs-comment">// &lt;-- false as immutable operation was used</span>
+
+muetatedUser = user.updateInPlace({<span class="hljs-attr">password</span>: <span class="hljs-string">'newpassword'</span>});
+
+user === mutatedUser <span class="hljs-comment">// &lt;-- true as model was mutated in place</span>
+</code></pre>
+				<h3 id="data-validation-with-create-update-and-load-joi-schemas">Data validation with create, update and load joi schemas</h3>
+				<pre><code class="lang-javascript"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserModel</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Model</span>&lt;<span class="hljs-title">User</span>&gt; </span>{
+  get schema() {
+    <span class="hljs-keyword">return</span> Joi.object({
+      <span class="hljs-attr">username</span>: Joi.string(),
+      <span class="hljs-attr">password</span>: Joi.string().required(),
+      <span class="hljs-attr">hashedPassword</span>: Joi.string().hex()
+    }).xor(<span class="hljs-string">'password'</span>, <span class="hljs-string">'hashedPassword'</span>);
+  }
+
+  get createSchema() {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.schema.requiredKeys([<span class="hljs-string">'password'</span>]);
+  }
+}
+
+<span class="hljs-keyword">const</span> user = <span class="hljs-keyword">new</span> UserModel().create({
+  <span class="hljs-attr">username</span>: <span class="hljs-string">'user'</span>
+}); <span class="hljs-comment">// &lt;-- validation error as password is missing</span>
+</code></pre>
+				<h3 id="change-detection">Change detection</h3>
+				<p>Just model tracks changes on models and provides method that gets old value
+					or tells if change was made compared to initial value. This is very usefull if
+				doing update oprations on model and need to know if values have changed.</p>
+				<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> model = <span class="hljs-keyword">new</span> UserModel().load(data);
+
+model.updateInPlace(req.data);
+
+<span class="hljs-keyword">if</span> (model.hasChanged(<span class="hljs-string">'password'</span>)) {
+  <span class="hljs-comment">// check old password for example</span>
+}
+</code></pre>
+				<h3 id="insallation">Insallation</h3>
+				<pre><code class="lang-bash">npm install --save justmodel
+</code></pre>
+				<h3 id="example">Example</h3>
+				<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { Model } <span class="hljs-keyword">from</span> <span class="hljs-string">'justmodel'</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">UserModel</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Model</span>&lt;<span class="hljs-title">User</span>&gt; </span>{
+  get schema() {
+    <span class="hljs-keyword">return</span> Joi.object({
+      <span class="hljs-attr">username</span>: Joi.string().min(<span class="hljs-number">4</span>).max(<span class="hljs-number">20</span>).lowercase(),
+      <span class="hljs-attr">password</span>: Joi.string().required().min(<span class="hljs-number">8</span>),
+      <span class="hljs-attr">email</span>: Joi.string().email().required(),
+      <span class="hljs-attr">hashedPassword</span>: Joi.string().hex()
+    });
+  }
+
+  get createSchema() {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.schema.requiredKeys([<span class="hljs-string">'password'</span>]);
+  }
+
+  value() {
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._data.delete(<span class="hljs-string">'password'</span>).toJS();
+  }
+}
+
+<span class="hljs-keyword">const</span> user = <span class="hljs-keyword">new</span> UserModel().create({
+  <span class="hljs-attr">username</span>: <span class="hljs-string">'user'</span>,
+  <span class="hljs-attr">password</span>: <span class="hljs-string">'mypassword'</span>,
+  <span class="hljs-attr">email</span>: <span class="hljs-string">'email@example.com'</span>
+});
+
+checkWeakPasswords(user);
+
+user.updateInPlace({
+  <span class="hljs-attr">hashedPassword</span>: hashPassword(user.password)
+});
+
+<span class="hljs-keyword">if</span>(user.hasChanged(<span class="hljs-string">'email'</span>)) {
+  <span class="hljs-keyword">return</span> sendChangeEmail(user);
+}
+
+save(user);
+</code></pre>
+				<h3 id="development">Development</h3>
+				<ul>
+					<li><code>npm t</code>: Run test suite</li>
+					<li><code>npm start</code>: Runs <code>npm run build</code> in watch mode</li>
+					<li><code>npm run test:watch</code>: Run test suite in <a href="http://facebook.github.io/jest/docs/cli.html#watch">interactive watch mode</a></li>
+					<li><code>npm run test:prod</code>: Run linting and generate coverage</li>
+					<li><code>npm run build</code>: Generage bundles and typings, create docs</li>
+					<li><code>npm run lint</code>: Lints code</li>
+					<li><code>npm run commit</code>: Commit using conventional commit style (<a href="https://github.com/typicode/husky">husky</a> will tell you to use it if you haven&#39;t :wink:)</li>
+				</ul>
+				<h2 id="credits">Credits</h2>
+				<p>Made with :heart: by <a href="https://twitter.com/offlinehacker">@offlinehacker</a> </p>
+			</div>
+		</div>
+		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
+			<nav class="tsd-navigation primary">
+				<ul>
+					<li class="globals  ">
+						<a href="globals.html"><em>Globals</em></a>
+					</li>
+					<li class=" tsd-kind-external-module">
+						<a href="modules/_justmodel_.html">"justmodel"</a>
+					</li>
+				</ul>
+			</nav>
+			<nav class="tsd-navigation secondary menu-sticky">
+				<ul class="before-current">
+				</ul>
+			</nav>
+		</div>
+	</div>
+</div>
+<footer class="with-border-bottom">
+	<div class="container">
+		<h2>Legend</h2>
+		<div class="tsd-legend-group">
+			<ul class="tsd-legend">
+				<li class="tsd-kind-module"><span class="tsd-kind-icon">Module</span></li>
+				<li class="tsd-kind-object-literal"><span class="tsd-kind-icon">Object literal</span></li>
+				<li class="tsd-kind-variable"><span class="tsd-kind-icon">Variable</span></li>
+				<li class="tsd-kind-function"><span class="tsd-kind-icon">Function</span></li>
+				<li class="tsd-kind-function tsd-has-type-parameter"><span class="tsd-kind-icon">Function with type parameter</span></li>
+				<li class="tsd-kind-index-signature"><span class="tsd-kind-icon">Index signature</span></li>
+				<li class="tsd-kind-type-alias"><span class="tsd-kind-icon">Type alias</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-enum"><span class="tsd-kind-icon">Enumeration</span></li>
+				<li class="tsd-kind-enum-member"><span class="tsd-kind-icon">Enumeration member</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-enum"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-enum"><span class="tsd-kind-icon">Method</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-interface"><span class="tsd-kind-icon">Interface</span></li>
+				<li class="tsd-kind-interface tsd-has-type-parameter"><span class="tsd-kind-icon">Interface with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-interface"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-interface"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-interface"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-interface"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-class"><span class="tsd-kind-icon">Class</span></li>
+				<li class="tsd-kind-class tsd-has-type-parameter"><span class="tsd-kind-icon">Class with type parameter</span></li>
+				<li class="tsd-kind-constructor tsd-parent-kind-class"><span class="tsd-kind-icon">Constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class"><span class="tsd-kind-icon">Property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class"><span class="tsd-kind-icon">Method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class"><span class="tsd-kind-icon">Accessor</span></li>
+				<li class="tsd-kind-index-signature tsd-parent-kind-class"><span class="tsd-kind-icon">Index signature</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-constructor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited constructor</span></li>
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-inherited"><span class="tsd-kind-icon">Inherited accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-protected"><span class="tsd-kind-icon">Protected accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private property</span></li>
+				<li class="tsd-kind-method tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private method</span></li>
+				<li class="tsd-kind-accessor tsd-parent-kind-class tsd-is-private"><span class="tsd-kind-icon">Private accessor</span></li>
+			</ul>
+			<ul class="tsd-legend">
+				<li class="tsd-kind-property tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static property</span></li>
+				<li class="tsd-kind-call-signature tsd-parent-kind-class tsd-is-static"><span class="tsd-kind-icon">Static method</span></li>
+			</ul>
+		</div>
+	</div>
+</footer>
+<div class="container tsd-generator">
+	<p>Generated using <a href="http://typedoc.org/" target="_blank">TypeDoc</a></p>
+</div>
+<div class="overlay"></div>
+<script src="assets/js/main.js"></script>
+<script>if (location.protocol == 'file:') document.write('<script src="assets/js/search.js"><' + '/script>');</script>
+</body>
+</html>
